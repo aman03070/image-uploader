@@ -42,7 +42,7 @@
   <script>
     async function loadImage() {
       try {
-        const res = await fetch('http://localhost:3000/latest-image');
+        const res = await fetch('/latest-image');
         const data = await res.json();
         if (data.imageUrl) {
           document.getElementById('fullscreenImage').src = data.imageUrl + '?t=' + new Date().getTime();
