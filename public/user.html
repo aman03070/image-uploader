@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gyanikaka Updates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 2;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-wrapper {
+        width: 100%;
+      height: 99%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height:100%;
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="image-wrapper">
+    <img id="fullscreenImage" src="" alt="Full Screen Image" />
+  </div>
+
+  <script>
+    async function loadImage() {
+      try {
+        const res = await fetch('http://localhost:3000/latest-image');
+        const data = await res.json();
+        if (data.imageUrl) {
+          document.getElementById('fullscreenImage').src = data.imageUrl + '?t=' + new Date().getTime();
+        }
+      } catch (err) {
+        console.error('Failed to load image:', err);
+      }
+    }
+
+    loadImage();
+    setInterval(loadImage, 30000); // Refresh every 30 seconds
+  </script>
+</body>
+</html>
